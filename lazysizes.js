@@ -1,4 +1,8 @@
+// Custom fork modifications contained between `//<mod>` and `//</mod>`
 (function(window, factory) {
+	//<mod>
+	'use strict';
+	//</mod>
 	var lazySizes = factory(window, window.document);
 	window.lazySizes = lazySizes;
 	if(typeof module == 'object' && module.exports){
@@ -351,6 +355,10 @@
 			addClass(e.target, lazySizesConfig.loadedClass);
 			removeClass(e.target, lazySizesConfig.loadingClass);
 			addRemoveLoadEvents(e.target, rafSwitchLoadingClass);
+
+			//<mod>
+			if (lazySizesConfig.onEachLoaded !== null) lazySizesConfig.onEachLoaded(e);
+			//</mod>
 		};
 		var rafedSwitchLoadingClass = rAFIt(switchLoadingClass);
 		var rafSwitchLoadingClass = function(e){
@@ -638,7 +646,10 @@
 			init: true,
 			expFactor: 1.5,
 			hFac: 0.8,
-			loadMode: 2
+			loadMode: 2,
+			//<mod>
+			onEachLoaded: null
+			//</mod>
 		};
 
 		lazySizesConfig = window.lazySizesConfig || window.lazysizesConfig || {};
